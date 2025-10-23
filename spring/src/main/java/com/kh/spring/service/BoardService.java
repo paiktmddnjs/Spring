@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BoardService {
     int selectAllBoardCount();
-    ArrayList<Board> selectAllBoard(PageInfo pi);
+    List<Board> selectAllBoard(PageInfo pi);
 
 }

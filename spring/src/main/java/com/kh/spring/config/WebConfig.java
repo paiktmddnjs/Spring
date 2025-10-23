@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Spring MVC설정을 위한 Configuration 클래스
+ * Srping MVC설정을 위한 Configuration 클래스
  * WebMvcConfigurer 인터페이스를 구현하여 spring mvc의 다양한 설정을 커스터마이징 할 수 있음.
  */
 @Configuration
@@ -20,10 +20,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
-                .addPathPatterns(
-                        "/myPage.me",
-                        "/update.me",
-                        "/delete.me"
-                ).excludePathPatterns("/login.me", "/update.me", "/delete.me");
+                .addPathPatterns( // 특정 경로에 인터셉터를 동작시키겠다.
+                        "/**"
+                ).excludePathPatterns( //다만 이 경로들은 인터셉의 적용에서 제외
+                        "/",
+                        "/login.me",
+                        "/enrollForm.me",
+                        "/idDulpicateCheck.me",
+                        "/insert.me",
+                        "/static/**"
+                );
     }
 }

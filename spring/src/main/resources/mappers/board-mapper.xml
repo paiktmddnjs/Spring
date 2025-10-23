@@ -12,6 +12,7 @@
         <result column="COUNT" property="count"/>
         <result column="CREATE_DATE" property="createDate"/>
     </resultMap>
+
     <select id="selectAllBoardCount" resultType="_int">
         SELECT COUNT(*)
         FROM BOARD

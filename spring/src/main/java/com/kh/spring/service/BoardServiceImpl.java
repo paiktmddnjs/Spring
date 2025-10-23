@@ -16,21 +16,20 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardMapper boardMapper;
-    private SqlSession sqlSession;
+    private final SqlSession sqlSession;
 
     @Autowired
-    public BoardServiceImpl(BoardMapper boardMapper){
+    public BoardServiceImpl(BoardMapper boardMapper, SqlSession sqlSession){
 
         this.boardMapper = boardMapper;
-
+        this.sqlSession = sqlSession;
     }
 
     @Override
     public ArrayList<Board> selectAllBoard(PageInfo pi) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-
-        List<Board> list = sqlSession.selectList("BoardMapper.selectAllBoard", null, rowBounds);
+        List<Board> list = sqlSession.selectList("com.kh.spring.model.mapper.BoardMapper.selectAllBoard", null, rowBounds);
         return new ArrayList<>(list);
     }
 
