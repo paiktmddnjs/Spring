@@ -44,6 +44,20 @@ public class BoardController {
             model.addAttribute("list", list);
             model.addAttribute("pi", pi);
 
-            return "/WEB-INF/views/board/listView"; // 포워드할 뷰 경로
+            return "/board/listView"; // 포워드할 뷰 경로
         }
+
+
+        @GetMapping("detail.bo")
+        public String selectDetailBoard(@RequestParam(value = "bno", required = false) Integer boardNo, Model model) {
+
+            int boardNoInt = boardNo != null ? boardNo : 0;
+            int result = boardService.increaseCount(boardNo);
+            Board board = boardService.selectBoardByBoardNo(boardNo);
+
+            return "/board/detailView";
+        }
+
+
+
     }

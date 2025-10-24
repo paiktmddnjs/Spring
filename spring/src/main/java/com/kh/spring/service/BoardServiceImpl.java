@@ -38,5 +38,7 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.selectAllBoardCount();
     }
 
-
+    public String selectDetailBoard(Board board) {
+        RowBounds rowBounds = new RowBounds(0, 1);
+    }
 }

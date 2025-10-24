@@ -35,4 +35,32 @@
         WHERE MEMBER_ID = #{memberId}
         AND STATUS = 'Y'
     </select>
+    <select id="getMemberCountById" resultType="_int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+    <insert id="addMember" parameterType="Member">
+        INSERT INTO MEMBER
+        (
+        MEMBER_NO,
+        MEMBER_ID,
+        MEMBER_PWD,
+        MEMBER_NAME,
+        PHONE,
+        EMAIL,
+        ADDRESS,
+        INTEREST
+        )
+        VALUES(
+        SEQ_MNO.NEXTVAL,
+        #{memberId},
+        #{memberPwd},
+        #{memberName},
+        #{phone},
+        #{email},
+        #{address},
+        #{interest}
+        )
+    </insert>
 </mapper>

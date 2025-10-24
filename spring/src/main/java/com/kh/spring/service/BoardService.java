@@ -9,5 +9,6 @@ import java.util.List;
 public interface BoardService {
     int selectAllBoardCount();
     List<Board> selectAllBoard(PageInfo pi);
-
+    int increaseCount(int boardNo);
+    Board selectBoardByBoardNo(int boardNo);
 }

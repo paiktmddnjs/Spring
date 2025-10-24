@@ -11,4 +11,6 @@ import java.util.List;
 public interface BoardMapper {
     List<Board> selectAllBoard(RowBounds rowBounds);
     int selectAllBoardCount();
+    int increaseCount();
+    Board selectBoardByBoardNo(RowBounds rowBounds);
 }

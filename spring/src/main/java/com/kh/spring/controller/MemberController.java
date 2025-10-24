@@ -56,6 +56,8 @@ public class MemberController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+
+
     /*
     Spring에서 클라이언트가 HTML 폼데이터로 보낸 정보를 받는 방법
 
@@ -185,6 +187,7 @@ public class MemberController {
         return "member/enrollForm";
     }
 
+
     @GetMapping("idDulpicateCheck.me")
     @ResponseBody //리턴을 뷰(jsp)로 보내지말고, HTTP응답 바디에 그대로 담아서 보내라.
     public String idDulpicateCheck(@RequestParam String checkId) {
@@ -214,4 +217,5 @@ public class MemberController {
             return "common/error";
         }
     }
+
 }
