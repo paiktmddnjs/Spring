@@ -7,6 +7,7 @@
     <resultMap id="boardResultMap" type="Board">
         <result column="BOARD_NO" property="boardNo"/>
         <result column="CATEGORY_NAME" property="categoryName"/>
+        <result column="BOARD_CONTENT" property="boardContent"/>
         <result column="BOARD_TITLE" property="boardTitle"/>
         <result column="MEMBER_ID" property="memberId"/>
         <result column="COUNT" property="count"/>
@@ -50,6 +51,7 @@
         AND BOARD_TYPE = 1
         ORDER BY BOARD_NO DESC
     </select>
+
     <select id="searchBoard" resultMap="boardResultMap">
         SELECT  BOARD_NO,
         CATEGORY_NAME,
@@ -75,5 +77,28 @@
         </choose>
         LIKE '%${keyword}%'
         ORDER BY BOARD_NO DESC
+    </select>
+
+    <update id="increaseCount">
+        UPDATE BOARD
+        SET COUNT = COUNT + 1
+        WHERE BOARD_NO = #{boardNo}
+        AND STATUS = 'Y'
+    </update>
+
+
+    <select id="selectBoardByBoardNo" resultMap="boardResultMap">
+        SELECT BOARD_NO,
+        CATEGORY_NAME,
+        CATEGORY_NO,
+        BOARD_TITLE,
+        BOARD_CONTENT,
+        MEMBER_ID,
+        TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+        FROM BOARD B
+        LEFT JOIN CATEGORY USING(CATEGORY_NO)
+        JOIN MEMBER M ON(BOARD_WRITER = MEMBER_NO)
+        WHERE B.STATUS = 'Y'
+        AND BOARD_NO = #{boardNo}
     </select>
 </mapper>

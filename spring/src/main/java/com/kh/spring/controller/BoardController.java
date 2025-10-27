@@ -49,12 +49,12 @@ public class BoardController {
 
 
         @GetMapping("detail.bo")
-        public String selectDetailBoard(@RequestParam(value = "bno", required = false) Integer boardNo, Model model) {
+        public String selectDetailBoard(@RequestParam(value = "bno", required = true) Integer boardNo, Model model) {
 
             int boardNoInt = boardNo != null ? boardNo : 0;
-            int result = boardService.increaseCount(boardNo);
-            Board board = boardService.selectBoardByBoardNo(boardNo);
-
+            int result = boardService.increaseCount(boardNoInt);
+            Board board = boardService.selectBoardByBoardNo(boardNoInt);
+            model.addAttribute("board", board);
             return "/board/detailView";
         }
 

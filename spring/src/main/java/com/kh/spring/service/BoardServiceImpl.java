@@ -29,8 +29,15 @@ public class BoardServiceImpl implements BoardService {
     public ArrayList<Board> selectAllBoard(PageInfo pi) {
         int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+
+        //List<Board> list = boardMapper.selectAllBoard(rowBounds);
         List<Board> list = sqlSession.selectList("com.kh.spring.model.mapper.BoardMapper.selectAllBoard", null, rowBounds);
         return new ArrayList<>(list);
+    }
+
+    @Override
+    public int increaseCount(int boardNo) {
+        return boardMapper.increaseCount(boardNo);
     }
 
     @Override
@@ -38,7 +45,11 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.selectAllBoardCount();
     }
 
-    public String selectDetailBoard(Board board) {
-        RowBounds rowBounds = new RowBounds(0, 1);
+
+    @Override
+    public Board selectBoardByBoardNo(int boardNo) {
+        return boardMapper.selectBoardByBoardNo(boardNo);
     }
+
+
 }
