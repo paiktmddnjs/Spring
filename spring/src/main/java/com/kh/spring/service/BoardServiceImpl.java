@@ -2,6 +2,7 @@ package com.kh.spring.service;
 
 import com.kh.spring.model.mapper.BoardMapper;
 import com.kh.spring.model.vo.Board;
+import com.kh.spring.model.vo.Category;
 import com.kh.spring.model.vo.PageInfo;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -51,5 +52,8 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.selectBoardByBoardNo(boardNo);
     }
 
+    public ArrayList<Category> selectAllCategory() {
+        return boardMapper.selectAllCategory();
+    }
 
 }

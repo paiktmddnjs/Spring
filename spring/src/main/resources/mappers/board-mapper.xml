@@ -7,11 +7,14 @@
     <resultMap id="boardResultMap" type="Board">
         <result column="BOARD_NO" property="boardNo"/>
         <result column="CATEGORY_NAME" property="categoryName"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
         <result column="BOARD_CONTENT" property="boardContent"/>
         <result column="BOARD_TITLE" property="boardTitle"/>
         <result column="MEMBER_ID" property="memberId"/>
         <result column="COUNT" property="count"/>
         <result column="CREATE_DATE" property="createDate"/>
+
+
     </resultMap>
 
     <select id="selectAllBoardCount" resultType="_int">
@@ -101,4 +104,15 @@
         WHERE B.STATUS = 'Y'
         AND BOARD_NO = #{boardNo}
     </select>
+
+    <select id="selectAllCategory" resultMap="boardResultMap">
+
+        SELECT CATEGORY_NO,
+        CATEGORY_NAME
+        FROM CATEGORY
+
+
+    </select>
+
+
 </mapper>

@@ -2,13 +2,13 @@ package com.kh.spring.controller;
 
 
 import com.kh.spring.model.vo.Board;
+import com.kh.spring.model.vo.Category;
 import com.kh.spring.model.vo.PageInfo;
 import com.kh.spring.service.BoardService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -56,6 +56,17 @@ public class BoardController {
             Board board = boardService.selectBoardByBoardNo(boardNoInt);
             model.addAttribute("board", board);
             return "/board/detailView";
+        }
+
+        @GetMapping("enrollForm.bo")
+        public String enrollFormBoard( Model model) {
+
+            ArrayList<Category> categories = boardService.selectAllCategory();
+
+            model.addAttribute("categories", categories);
+
+            return "/board/enrollForm";
+
         }
 
 
