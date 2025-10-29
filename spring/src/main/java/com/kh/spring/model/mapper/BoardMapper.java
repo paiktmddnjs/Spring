@@ -1,5 +1,6 @@
 package com.kh.spring.model.mapper;
 
+import com.kh.spring.model.vo.Attachment;
 import com.kh.spring.model.vo.Board;
 import com.kh.spring.model.vo.Category;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,5 +18,5 @@ public interface BoardMapper {
     int increaseCount(@Param("boardNo") int boardNo);
     Board selectBoardByBoardNo(@Param("boardNo") int boardNo);
     ArrayList<Category> selectAllCategory();
-
+    int insertBoard(@Param("board")Board board, @Param("at") Attachment at);
 }

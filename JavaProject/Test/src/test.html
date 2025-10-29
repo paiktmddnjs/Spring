@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>크리에이터 대시보드 - 일별 조회수</title>
+    <!-- Chart.js 라이브러리 로드 (사용자 제공 버전) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <style>
+        /* 차트 컨테이너 스타일 */
+        .chart-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <h2>최근 일별 조회수 통계</h2>
+    <!-- 캔버스 ID를 myChart로 변경 -->
+    <canvas id="myChart" height="100"></canvas>
+</div>
+
+<script>
+    // 1. Chart.js 인스턴스를 저장할 전역 변수
+    let dailyViewsChartInstance = null;
+
+    // 2. Spring Boot API 엔드포인트 URL
+    const apiUrl = '/api/stats/daily-views';
+
+    /**
+     * API 데이터를 가져와 Chart.js 포맷으로 가공하고 차트를 렌더링합니다.
+     */
+    async function fetchAndRenderChart() {
+        let labels = [];
+        let viewCounts = [];
+
+        // 캔버스 요소를 먼저 가져옵니다.
+        const canvasElement = document.getElementById('myChart');
+
+        try {
+            // 데이터를 비동기적으로 가져옴
+            const response = await fetch(apiUrl);
+
+            // HTTP 상태 코드가 200 (성공)이 아니면 오류 발생
+            if (!response.ok) {
+                throw new Error(`HTTP Error: ${response.status}`);
+            }
+
+            // JSON 데이터를 파싱
+            const dbData = await response.json();
+
+            // 데이터 가공: Chart.js가 요구하는 레이블 배열과 데이터 배열로 분리
+            dbData.forEach(item => {
+                // StatsController.java의 Mock Data key: 'label_date', 'total_views' 사용
+                labels.push(item.label_date);
+                viewCounts.push(item.total_views);
+            });
+
+            // Chart.js 데이터 구성
+            const data = {
+                labels: labels, // API에서 가져온 날짜 배열
+                datasets: [{
+                    label: '일별 총 조회수', // 사용자 제공 코드의 'Dataset' 대신 사용
+                    data: viewCounts, // API에서 가져온 조회수 배열
+                    backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 1
+                }]
+            };
+
+            // 차트 인스턴스가 이미 존재하면 기존 차트를 파괴
+            if (dailyViewsChartInstance) {
+                dailyViewsChartInstance.destroy();
+            }
+
+            // 캔버스 컨텍스트 대신 캔버스 DOM 자체를 전달 (Chart.js 4.x 버전)
+            dailyViewsChartInstance = new Chart(canvasElement, {
+                type: 'bar', // 사용자가 요청한 막대 차트 유형
+                data: data,
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: '조회수' }
+                        },
+                        x: {
+                            title: { display: true, text: '날짜' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true },
+                        title: { display: false }
+                    }
+                }
+            });
+
+        } catch (error) {
+            console.error('차트 데이터를 불러오는 중 오류 발생:', error);
+            // 사용자에게 에러 메시지 표시
+            canvasElement.innerHTML = '<p style="color: red; text-align: center;">데이터 로드 실패: API 연결을 확인하세요.</p>';
+        }
+    }
+
+    // 페이지 로드 시 차트 렌더링 함수 실행
+    window.onload = fetchAndRenderChart;
+</script>
+
+</body>
+</html>

@@ -6,10 +6,12 @@
 <mapper namespace="com.kh.spring.model.mapper.BoardMapper">
     <resultMap id="boardResultMap" type="Board">
         <result column="BOARD_NO" property="boardNo"/>
+        <result column="BOARD_TYPE" property="boardType"/>
         <result column="CATEGORY_NAME" property="categoryName"/>
         <result column="CATEGORY_NO" property="categoryNo"/>
         <result column="BOARD_CONTENT" property="boardContent"/>
         <result column="BOARD_TITLE" property="boardTitle"/>
+        <result column="BOARD_WRITER" property="boardWriter"/>
         <result column="MEMBER_ID" property="memberId"/>
         <result column="COUNT" property="count"/>
         <result column="CREATE_DATE" property="createDate"/>
@@ -114,5 +116,22 @@
 
     </select>
 
+    <insert id="insertBoard" parameterType="Board">
+        INSERT INTO BOARD (
+        BOARD_NO,
+        BOARD_TYPE,
+        CATEGORY_NO,
+        BOARD_TITLE,
+        BOARD_CONTENT,
+        BOARD_WRITER
+        ) VALUES (
+        SEQ_BNO.NEXTVAL,
+        #{boardType},
+        #{categoryNo},
+        #{boardTitle},
+        #{boardContent},
+        #{boardWriter}
+        )
+    </insert>
 
 </mapper>

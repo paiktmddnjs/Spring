@@ -1,5 +1,6 @@
 package com.kh.spring.service;
 
+import com.kh.spring.model.vo.Attachment;
 import com.kh.spring.model.vo.Board;
 import com.kh.spring.model.vo.Category;
 import com.kh.spring.model.vo.PageInfo;
@@ -13,4 +14,5 @@ public interface BoardService {
     int increaseCount(int boardNo);
     Board selectBoardByBoardNo(int boardNo);
     ArrayList<Category> selectAllCategory();
+    int insertBoard(Board board, Attachment at);
 }
