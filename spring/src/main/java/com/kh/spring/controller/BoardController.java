@@ -1,10 +1,7 @@
 package com.kh.spring.controller;
 
 
-import com.kh.spring.model.vo.Attachment;
-import com.kh.spring.model.vo.Board;
-import com.kh.spring.model.vo.Category;
-import com.kh.spring.model.vo.PageInfo;
+import com.kh.spring.model.vo.*;
 import com.kh.spring.service.BoardService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,8 +105,13 @@ public class BoardController {
                 return "redirect:/list.bo";
             }
         }
-
-        b.setBoardWriter(1); // 테스트용 작성자
+        Member loginMember = (Member)session.getAttribute("loginMember");
+        b.setBoardWriter(loginMember.getMemberNo());
+        b.setBoardType(1);
+        System.out.println("Board Writer: " + b.getBoardWriter());
+        System.out.println("Board Type: " + b.getBoardType());
+        System.out.println("Category No: " + b.getCategoryNo());
+        System.out.println("Board Title: " + b.getBoardTitle());
 
         int result = boardService.insertBoard(b, at);
 

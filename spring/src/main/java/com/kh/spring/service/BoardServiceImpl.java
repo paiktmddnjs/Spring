@@ -59,7 +59,20 @@ public class BoardServiceImpl implements BoardService {
 
     public int insertBoard(Board board, Attachment at) {
 
-        return boardMapper.insertBoard(board ,at);
+        int result1 = boardMapper.insertBoard(board); // 게시글 테이블에 데이터 삽입
+
+        // 2. 첨부파일 등록 (선택)
+        int result2 = 1; // 기본값은 1 (첨부파일이 없어도 성공 처리)
+        if (at != null) {
+            // 게시글 등록 시 생성된 BOARD_NO를 Attachment 객체에 설정해야 함
+            // 방법: MyBatis의 <insert useGeneratedKeys="true" ...> 또는 <selectKey> 사용
+            at.setRefBoardNo(board.getBoardNo());
+            result2 = boardMapper.insertAttachment(at); // 첨부파일 테이블에 데이터 삽입
+        }
+
+        // 두 작업 모두 성공했을 때만 최종 성공으로 간주
+        return result1 * result2; // 0 (실패) 또는 1 (성공) 반환
+
     }
 
 }

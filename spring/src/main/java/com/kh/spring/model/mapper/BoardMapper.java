@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,5 +17,6 @@ public interface BoardMapper {
     int increaseCount(@Param("boardNo") int boardNo);
     Board selectBoardByBoardNo(@Param("boardNo") int boardNo);
     ArrayList<Category> selectAllCategory();
-    int insertBoard(@Param("board")Board board, @Param("at") Attachment at);
+    int insertBoard(@Param("b") Board board);
+    int insertAttachment(@Param("at") Attachment at);
 }

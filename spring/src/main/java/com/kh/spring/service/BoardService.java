@@ -15,4 +15,5 @@ public interface BoardService {
     Board selectBoardByBoardNo(int boardNo);
     ArrayList<Category> selectAllCategory();
     int insertBoard(Board board, Attachment at);
+
 }

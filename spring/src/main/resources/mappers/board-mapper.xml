@@ -126,11 +126,28 @@
         BOARD_WRITER
         ) VALUES (
         SEQ_BNO.NEXTVAL,
-        #{boardType},
-        #{categoryNo},
-        #{boardTitle},
-        #{boardContent},
-        #{boardWriter}
+        #{b.boardType},
+        #{b.categoryNo},
+        #{b.boardTitle},
+        #{b.boardContent},
+        #{b.boardWriter}
+        )
+    </insert>
+
+    <insert id="insertAttachment" parameterType="Attachment">
+        INSERT
+        INTO ATTACHMENT(
+        FILE_NO,
+        REF_BNO,
+        ORIGIN_NAME,
+        CHANGE_NAME,
+        FILE_PATH
+        ) VALUES(
+        SEQ_FNO.NEXTVAL,
+        SEQ_BNO.CURRVAL,
+        #{at.originName},
+        #{at.changeName},
+        #{at.filePath}
         )
     </insert>
 
