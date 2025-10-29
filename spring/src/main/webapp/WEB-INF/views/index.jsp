@@ -9,6 +9,6 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/menubar.jsp" />
 
-    ${memberId} / ${memberPwd}
+${memberId} / ${memberPwd}
 </body>
 </html>

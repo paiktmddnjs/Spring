@@ -1,21 +1,17 @@
 package com.kh.spring.controller;
 
-import com.kh.spring.model.mapper.MemberMapper;
 import com.kh.spring.model.vo.Member;
 import com.kh.spring.service.MemberService;
-import com.kh.spring.service.MemberServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.awt.*;
 
 //Bean에 class등록하는 방법으로 @Component를 클래스에 부여한다.
 //@Controller -> @Component + Controller객체가 가질 수 있는 예외처리등의 기능을 포함하는 어노테이션
@@ -55,8 +51,6 @@ public class MemberController {
         this.memberService = memberService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
-
 
     /*
     Spring에서 클라이언트가 HTML 폼데이터로 보낸 정보를 받는 방법
@@ -181,12 +175,10 @@ public class MemberController {
         return mv;
     }
 
-
     @GetMapping("enrollForm.me")
     public String enrollForm() {
         return "member/enrollForm";
     }
-
 
     @GetMapping("idDulpicateCheck.me")
     @ResponseBody //리턴을 뷰(jsp)로 보내지말고, HTTP응답 바디에 그대로 담아서 보내라.
@@ -218,4 +210,14 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/myPage.me")
+    public String myPage() {
+        return "member/myPage";
+    }
+
+    @GetMapping("/logout.me")
+    public String logout(HttpSession httpSession) {
+        httpSession.removeAttribute("loginMember");
+        return "redirect:/";
+    }
 }

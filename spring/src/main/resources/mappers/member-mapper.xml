@@ -53,7 +53,7 @@
         INTEREST
         )
         VALUES(
-        SEQ_MNO.NEXTVAL,
+        SEQ_UNO.NEXTVAL,
         #{memberId},
         #{memberPwd},
         #{memberName},

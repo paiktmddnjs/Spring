@@ -1,12 +1,10 @@
 package com.kh.spring.interceptor;
 
-import com.kh.spring.model.vo.Member;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 /*
     HandlerInterceptor 인터페이스의 메서드 :
@@ -27,7 +25,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         if(session == null || session.getAttribute("loginMember") == null){
             log.warn("미인증 사용자 요청 : {}",  request.getRequestURI());
 
-            response.sendRedirect(request.getContextPath());
+            response.sendRedirect(request.getContextPath() + "/");
 
             return false;
         }
