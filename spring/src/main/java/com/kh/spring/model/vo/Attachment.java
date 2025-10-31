@@ -22,4 +22,9 @@ public class Attachment {
     private Date uploadDate;
     private int fileLevel;
     private String status;
+
+
+    private int boardNo;
+    private String categoryName;
+    private String memberId;
 }

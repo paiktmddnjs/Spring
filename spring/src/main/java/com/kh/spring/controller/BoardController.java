@@ -60,7 +60,9 @@ public class BoardController {
         int boardNoInt = boardNo != null ? boardNo : 0;
         int result = boardService.increaseCount(boardNoInt);
         Board board = boardService.selectBoardByBoardNo(boardNoInt);
+        Attachment at = boardService.selectAttachment(boardNoInt);
         model.addAttribute("board", board);
+        model.addAttribute("at", at);
         return "/board/detailView";
     }
 

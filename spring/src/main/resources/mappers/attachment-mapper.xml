@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.spring.model.mapper.BoardMapper">
+    <resultMap id="attachmentResultMap" type="Attachment">
+        <result column="FIlE_NO" property="fileNo"/>
+        <result column="ORIGIN_NAME" property="originName"/>
+        <result column="CHANGE_NAME" property="changeName"/>
+        <result column="FILE_PATH" property="filePath"/>
+        <result column="FILE_LEVEL" property="fileLevel"/>
+    </resultMap>
+
+    <select id="selectAttachment" resultMap="attachmentResultMap">
+        SELECT FILE_NO,
+        ORIGIN_NAME,
+        CHANGE_NAME,
+        FILE_PATH,
+        FILE_LEVEL
+        FROM ATTACHMENT
+        WHERE REF_BNO = #{boardNo}
+    </select>
+
+
+</mapper>

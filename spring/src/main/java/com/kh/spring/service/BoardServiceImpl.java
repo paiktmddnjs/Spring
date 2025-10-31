@@ -75,4 +75,10 @@ public class BoardServiceImpl implements BoardService {
 
     }
 
+    public Attachment selectAttachment(int boardNo) {
+
+        return boardMapper.selectAttachment(boardNo);
+
+    }
+
 }

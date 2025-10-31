@@ -19,4 +19,5 @@ public interface BoardMapper {
     ArrayList<Category> selectAllCategory();
     int insertBoard(@Param("b") Board board);
     int insertAttachment(@Param("at") Attachment at);
+    Attachment selectAttachment(@Param("boardNo") int boardNo);
 }
